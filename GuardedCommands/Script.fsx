@@ -1,10 +1,13 @@
-﻿// Michael R. Hansen 05-01-2016
+﻿// https://www.campusnet.dtu.dk/cnnet/filesharing/download/eaaa0b71-ff17-4084-abbe-60d619a25790
+
+// Michael R. Hansen 05-01-2016
 
 // You must revise 4 pathes occurring in this file 
 // The first three are:
-#r @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\bin\Debug\FSharp.PowerPack.dll";;
-#r @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\bin\Debug\Machine.dll";
-#r @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\bin\Debug\\VirtualMachine.dll";
+
+#r @".\bin\Debug\FSharp.PowerPack.dll";;
+#r @".\bin\Debug\Machine.dll";
+#r @".\bin\Debug\VirtualMachine.dll";
 
 #load "AST.fs"
 #load "Parser.fs"
@@ -27,7 +30,7 @@ open Machine
 open VirtualMachine
 
 // You must revise this path
-System.IO.Directory.SetCurrentDirectory @"C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands";;
+System.IO.Directory.SetCurrentDirectory @"C:\Users\Helge\git\GuardedCommands\GuardedCommands\";;
 
 // The Ex0.gc example:
 
@@ -44,7 +47,7 @@ let _ = goTrace ex0Tree;;
 
 // Parsing of Ex1.gc
 
-let ex1Tree = parseFromFile "Ex1.gc";; 
+let ex1Tree = parseFromFile "Ex3.gc";; 
 
 // -- is typechecked as follows:
 
@@ -72,15 +75,16 @@ List.iter execOpt ["Ex1.gc"; "Ex2.gc"];;
 let pts = List.map parseFromFile ["Ex1.gc"; "Ex2.gc";"Ex3.gc"; "Ex4.gc"; "Ex5.gc"; "Ex6.gc"; "Skip.gc"];;
 
 // The parse tree for Ex3.gc
-List.nth pts 2;
-
+List.item 2 pts;
 (*
 // Test of programs covered by the first task (Section 3.7):
 List.iter exec ["Ex1.gc"; "Ex2.gc";"Ex3.gc"; "Ex4.gc"; "Ex5.gc"; "Ex6.gc"; "Skip.gc"];;
+*)
 
 // Test of programs covered by the second task (Section 4.3):
 List.iter exec ["Ex7.gc"; "fact.gc"; "factRec.gc"; "factCBV.gc"];;
 
+(*
 // Test of programs covered by the fourth task (Section 5.4):
 List.iter exec ["A0.gc"; "A1.gc"; "A2.gc"; "A3.gc"];;
 

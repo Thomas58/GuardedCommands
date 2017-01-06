@@ -30,3 +30,15 @@ C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\Guarded
 C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.fsprojResolveAssemblyReference.cache
 C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.dll
 C:\Users\mire\Documents\MRH data\Kurser\02257-16\GuardedCommandsVersion2\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.pdb
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.XML
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.dll
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.pdb
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.dll
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\GuardedCommands.pdb
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\FSharp.Core.dll
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.dll
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\FSharp.Core.xml
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\FSharp.PowerPack.pdb
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\FSharp.PowerPack.xml
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\bin\Debug\FsLexYacc.Runtime.xml
+C:\Users\Helge\git\GuardedCommands\GuardedCommands\obj\Debug\GuardedCommands.fsprojResolveAssemblyReference.cache

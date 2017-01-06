@@ -14,20 +14,23 @@ module TypeCheck =
          | B _              -> BTyp   
          | Access acc       -> tcA gtenv ltenv acc     
                    
-         | Apply(f,[e]) when List.exists (fun x ->  x=f) ["-"]  
+         | Apply(f,[e]) when List.exists (fun x ->  x=f) ["-"; "!"]  
                             -> tcMonadic gtenv ltenv f e        
 
-         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+";"*"; "="; "&&"]        
+         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+"; "-"; "*"; "="; "&&"]        
                             -> tcDyadic gtenv ltenv f e1 e2   
 
-         | _                -> failwith "tcE: not supported yet"
+         | Apply(f,_)       -> failwith("String: " + f)
+
+         | e                -> failwith("tcE: not supported yet" + string e)
 
    and tcMonadic gtenv ltenv f e = match (f, tcE gtenv ltenv e) with
                                    | ("-", ITyp) -> ITyp
+                                   | ("!", BTyp) -> BTyp
                                    | _           -> failwith "illegal/illtyped monadic expression" 
    
    and tcDyadic gtenv ltenv f e1 e2 = match (f, tcE gtenv ltenv e1, tcE gtenv ltenv e2) with
-                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+";"*"]  -> ITyp
+                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+"; "-"; "*"]  -> ITyp
                                       | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["="] -> BTyp
                                       | (o, BTyp, BTyp) when List.exists (fun x ->  x=o) ["&&";"="]     -> BTyp 
                                       | _                      -> failwith("illegal/illtyped dyadic expression: " + f)
@@ -59,7 +62,14 @@ module TypeCheck =
                                          else failwith "illtyped assignment"                                
 
                          | Block([],stms) -> List.iter (tcS gtenv ltenv) stms
-                         | _              -> failwith "tcS: this statement is not supported yet"
+
+                         | Do (GC list)
+                         | Alt (GC list)  -> List.iter (fun (e,stms) -> 
+                                                            if tcE gtenv ltenv e = BTyp
+                                                            then List.iter (tcS gtenv ltenv) stms
+                                                            else failwith "illtyped guarded command") list
+                                                                   
+                         | stm            -> failwith ("tcS: this statement is not supported yet" + string stm)
 
    and tcGDec gtenv = function  
                       | VarDec(t,s)               -> Map.add s t gtenv

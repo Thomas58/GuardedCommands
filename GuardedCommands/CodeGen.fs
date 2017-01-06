@@ -30,16 +30,19 @@ module CodeGeneration =
        | B b          -> [CSTI (if b then 1 else 0)]
        | Access acc   -> CA vEnv fEnv acc @ [LDI] 
 
-       | Apply("-", [e]) -> CE vEnv fEnv e @  [CSTI 0; SWAP; SUB]
+       | Apply("-", [e]) -> CE vEnv fEnv e @ [CSTI 0; SWAP; SUB]
+
+       | Apply("!", [e]) -> CE vEnv fEnv e @ [CSTI 1; SWAP; SUB]
 
        | Apply("&&",[b1;b2]) -> let labend   = newLabel()
                                 let labfalse = newLabel()
                                 CE vEnv fEnv b1 @ [IFZERO labfalse] @ CE vEnv fEnv b2
                                 @ [GOTO labend; Label labfalse; CSTI 0; Label labend]
 
-       | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "*"; "="]
+       | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "-"; "*"; "="]
                              -> let ins = match o with
                                           | "+"  -> [ADD]
+                                          | "-"  -> [SUB]
                                           | "*"  -> [MUL]
                                           | "="  -> [EQ] 
                                           | _    -> failwith "CE: this case is not possible"
@@ -75,9 +78,25 @@ module CodeGeneration =
 
        | Ass(acc,e)       -> CA vEnv fEnv acc @ CE vEnv fEnv e @ [STI; INCSP -1]
 
-       | Block([],stms) ->   CSs vEnv fEnv stms
+       | Block([],stms)   -> CSs vEnv fEnv stms
 
-       | _                -> failwith "CS: this statement is not supported yet"
+       | Alt gc           -> match gc with
+                             | GC []            -> failwith "Alt: abort abnormally"
+                             | GC(list)         -> let labend = newLabel()
+                                                   List.fold (fun acc (e,stms) -> 
+                                                       let labfalse = newLabel() 
+                                                       acc @ CE vEnv fEnv e @ [IFZERO labfalse] @ 
+                                                       CSs vEnv fEnv stms @ [GOTO labend; Label labfalse]
+                                                       ) [] list @ [STOP; Label labend]
+
+       | Do (GC list)      -> List.fold (fun acc (e,stms) -> 
+                                let labstart = newLabel()
+                                let labfalse = newLabel()
+                                acc @ [Label labstart] @ CE vEnv fEnv e @ [IFZERO labfalse] @ 
+                                CSs vEnv fEnv stms @ [GOTO labstart; Label labfalse]                             
+                                ) [] list
+
+       | stm              -> failwith("CS: this statement is not supported yet" + string stm)
 
    and CSs vEnv fEnv stms = List.collect (CS vEnv fEnv) stms 
 

@@ -7,6 +7,8 @@ type token =
   | ASG
   | SKIP
   | ABORT
+  | FUNDEC
+  | RET
   | NEG
   | PLUS
   | MINUS
@@ -36,6 +38,7 @@ type token =
   | RSP
   | ITYP
   | BTYP
+  | FTYP
   | NAME of (string)
   | STRING of (string)
   | BOOL of (bool)
@@ -47,6 +50,8 @@ type tokenId =
     | TOKEN_ASG
     | TOKEN_SKIP
     | TOKEN_ABORT
+    | TOKEN_FUNDEC
+    | TOKEN_RET
     | TOKEN_NEG
     | TOKEN_PLUS
     | TOKEN_MINUS
@@ -76,6 +81,7 @@ type tokenId =
     | TOKEN_RSP
     | TOKEN_ITYP
     | TOKEN_BTYP
+    | TOKEN_FTYP
     | TOKEN_NAME
     | TOKEN_STRING
     | TOKEN_BOOL
@@ -89,6 +95,8 @@ type nonTerminalId =
     | NONTERM_Prog
     | NONTERM_BasicTyp
     | NONTERM_Typ
+    | NONTERM_TypOpt
+    | NONTERM_RetOpt
     | NONTERM_Dec
     | NONTERM_DecL
     | NONTERM_DecList
@@ -99,10 +107,12 @@ type nonTerminalId =
     | NONTERM_GuardedCommand
     | NONTERM_GCList
     | NONTERM_Exp
-/// This function maps integers indexes to symbolic token ids
+    | NONTERM_ExpL
+    | NONTERM_ExpList
+/// This function maps tokens to integer indexes
 val tagOfToken: token -> int
 
-/// This function maps integers indexes to symbolic token ids
+/// This function maps integer indexes to symbolic token ids
 val tokenTagToTokenId: int -> tokenId
 
 /// This function maps production indexes returned in syntax errors to strings representing the non terminal that would be produced by that production
