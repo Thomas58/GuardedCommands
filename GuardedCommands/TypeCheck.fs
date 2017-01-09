@@ -42,7 +42,7 @@ module TypeCheck =
                                                                       | Some typ  -> typ
                                                                       | None      -> failwith "illtyped void function"
                                          
-                                         | _                       -> failwith "tcE: unknown function"
+                                         | t                       -> failwith ("tcE: unknown function" + string t)
  
    and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
       
@@ -67,7 +67,7 @@ module TypeCheck =
                          | Ass(acc,e) -> if tcA gtenv ltenv acc = tcE gtenv ltenv e then ()
                                          else failwith "illtyped assignment"                                
 
-                         | Block([],stms) -> List.iter (tcS gtenv ltenv retOpt) stms
+                         | Block(decs,stms) -> List.iter (tcS gtenv (tcLDecs ltenv decs) retOpt) stms
 
                          | Do (GC list)
                          | Alt (GC list)  -> List.iter (fun (e,stms) -> 
@@ -84,10 +84,11 @@ module TypeCheck =
                       | VarDec(t,s)               -> Map.add s t gtenv
                       | FunDec(topt,f, decs, stm) -> let ltenv = tcLDecs Map.empty decs
                                                      let typs = List.fold (fun acc dec -> match dec with
-                                                                                           | VarDec(t,s) -> t::acc
-                                                                                           | _           -> failwith "illegal declaration" ) [] decs
-                                                     tcS gtenv ltenv topt stm
-                                                     Map.add f (FTyp(typs,topt)) gtenv
+                                                                                          | VarDec(t,s) -> t::acc
+                                                                                          | _           -> failwith "illegal declaration" ) [] decs
+                                                     let newEnv = Map.add f (FTyp(typs,topt)) gtenv // For recursion
+                                                     tcS newEnv ltenv topt stm
+                                                     newEnv
 
    and tcGDecs gtenv = function
                        | dec::decs -> tcGDecs (tcGDec gtenv dec) decs

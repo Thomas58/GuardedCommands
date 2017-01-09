@@ -248,15 +248,15 @@ let prodIdxToNonTerminal (prodIdx:int) =
     | 23 -> NONTERM_Stm 
     | 24 -> NONTERM_Stm 
     | 25 -> NONTERM_Stm 
-    | 26 -> NONTERM_StmL 
+    | 26 -> NONTERM_Stm 
     | 27 -> NONTERM_StmL 
-    | 28 -> NONTERM_StmList 
+    | 28 -> NONTERM_StmL 
     | 29 -> NONTERM_StmList 
-    | 30 -> NONTERM_GuardedCommand 
+    | 30 -> NONTERM_StmList 
     | 31 -> NONTERM_GuardedCommand 
-    | 32 -> NONTERM_GCList 
+    | 32 -> NONTERM_GuardedCommand 
     | 33 -> NONTERM_GCList 
-    | 34 -> NONTERM_Exp 
+    | 34 -> NONTERM_GCList 
     | 35 -> NONTERM_Exp 
     | 36 -> NONTERM_Exp 
     | 37 -> NONTERM_Exp 
@@ -272,10 +272,11 @@ let prodIdxToNonTerminal (prodIdx:int) =
     | 47 -> NONTERM_Exp 
     | 48 -> NONTERM_Exp 
     | 49 -> NONTERM_Exp 
-    | 50 -> NONTERM_ExpL 
+    | 50 -> NONTERM_Exp 
     | 51 -> NONTERM_ExpL 
-    | 52 -> NONTERM_ExpList 
+    | 52 -> NONTERM_ExpL 
     | 53 -> NONTERM_ExpList 
+    | 54 -> NONTERM_ExpList 
     | _ -> failwith "prodIdxToNonTerminal: bad production index"
 
 let _fsyacc_endOfInputTag = 45 
@@ -374,18 +375,18 @@ let _fsyacc_dataOfToken (t:token) =
   | STRING _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
   | BOOL _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
   | INT _fsyacc_x -> Microsoft.FSharp.Core.Operators.box _fsyacc_x 
-let _fsyacc_gotos = [| 0us; 65535us; 0us; 65535us; 1us; 65535us; 0us; 1us; 2us; 65535us; 0us; 4us; 2us; 3us; 2us; 65535us; 16us; 15us; 20us; 15us; 2us; 65535us; 16us; 17us; 20us; 21us; 1us; 65535us; 26us; 27us; 3us; 65535us; 6us; 31us; 24us; 31us; 32us; 31us; 1us; 65535us; 24us; 25us; 3us; 65535us; 6us; 7us; 24us; 30us; 32us; 33us; 27us; 65535us; 6us; 38us; 8us; 38us; 28us; 38us; 36us; 67us; 39us; 67us; 43us; 38us; 46us; 67us; 49us; 67us; 52us; 67us; 54us; 67us; 59us; 38us; 63us; 38us; 65us; 67us; 68us; 67us; 73us; 67us; 76us; 67us; 78us; 67us; 90us; 67us; 91us; 67us; 92us; 67us; 93us; 67us; 94us; 67us; 95us; 67us; 96us; 67us; 97us; 67us; 98us; 67us; 100us; 67us; 6us; 65535us; 6us; 58us; 8us; 58us; 28us; 29us; 43us; 58us; 59us; 58us; 63us; 58us; 4us; 65535us; 6us; 11us; 8us; 9us; 43us; 44us; 63us; 64us; 5us; 65535us; 6us; 57us; 8us; 57us; 43us; 57us; 59us; 60us; 63us; 57us; 2us; 65535us; 46us; 47us; 49us; 50us; 3us; 65535us; 46us; 61us; 49us; 61us; 65us; 66us; 21us; 65535us; 36us; 37us; 39us; 40us; 46us; 62us; 49us; 62us; 52us; 53us; 54us; 89us; 65us; 62us; 68us; 89us; 73us; 74us; 76us; 77us; 78us; 79us; 90us; 80us; 91us; 81us; 92us; 82us; 93us; 83us; 94us; 84us; 95us; 85us; 96us; 86us; 97us; 87us; 98us; 88us; 100us; 89us; 2us; 65535us; 54us; 55us; 68us; 69us; 3us; 65535us; 54us; 99us; 68us; 99us; 100us; 101us; |]
-let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 2us; 4us; 7us; 10us; 13us; 15us; 19us; 21us; 25us; 53us; 60us; 65us; 71us; 74us; 78us; 100us; 103us; |]
-let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 1us; 1us; 2us; 1us; 2us; 2us; 3us; 4us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 4us; 1us; 4us; 1us; 5us; 1us; 6us; 1us; 7us; 1us; 9us; 1us; 9us; 1us; 10us; 3us; 10us; 16us; 25us; 1us; 10us; 1us; 10us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 13us; 2us; 14us; 15us; 1us; 15us; 1us; 15us; 2us; 16us; 25us; 2us; 16us; 35us; 1us; 17us; 10us; 17us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 1us; 18us; 1us; 18us; 10us; 18us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 1us; 19us; 1us; 20us; 1us; 21us; 1us; 21us; 1us; 21us; 1us; 22us; 1us; 22us; 1us; 22us; 1us; 23us; 1us; 23us; 1us; 23us; 1us; 24us; 10us; 24us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 1us; 25us; 1us; 25us; 1us; 25us; 1us; 27us; 2us; 28us; 29us; 1us; 29us; 1us; 29us; 1us; 31us; 11us; 32us; 33us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 2us; 32us; 33us; 2us; 32us; 33us; 1us; 33us; 1us; 33us; 1us; 34us; 1us; 35us; 1us; 35us; 1us; 35us; 1us; 36us; 1us; 37us; 1us; 38us; 10us; 38us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 1us; 38us; 1us; 39us; 10us; 39us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 1us; 40us; 10us; 40us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 10us; 41us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 10us; 41us; 42us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 10us; 41us; 42us; 43us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 10us; 41us; 42us; 43us; 44us; 44us; 45us; 46us; 47us; 48us; 49us; 10us; 41us; 42us; 43us; 44us; 45us; 45us; 46us; 47us; 48us; 49us; 10us; 41us; 42us; 43us; 44us; 45us; 46us; 46us; 47us; 48us; 49us; 10us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 47us; 48us; 49us; 10us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 48us; 49us; 10us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 49us; 11us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 52us; 53us; 1us; 41us; 1us; 42us; 1us; 43us; 1us; 44us; 1us; 45us; 1us; 46us; 1us; 47us; 1us; 48us; 1us; 49us; 1us; 51us; 1us; 53us; 1us; 53us; |]
-let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; 8us; 10us; 12us; 15us; 17us; 19us; 21us; 23us; 25us; 27us; 29us; 31us; 33us; 35us; 37us; 39us; 43us; 45us; 47us; 49us; 51us; 53us; 55us; 57us; 59us; 61us; 63us; 65us; 68us; 70us; 72us; 75us; 78us; 80us; 91us; 93us; 95us; 106us; 108us; 110us; 112us; 114us; 116us; 118us; 120us; 122us; 124us; 126us; 128us; 130us; 141us; 143us; 145us; 147us; 149us; 152us; 154us; 156us; 158us; 170us; 173us; 176us; 178us; 180us; 182us; 184us; 186us; 188us; 190us; 192us; 194us; 205us; 207us; 209us; 220us; 222us; 233us; 244us; 255us; 266us; 277us; 288us; 299us; 310us; 321us; 332us; 344us; 346us; 348us; 350us; 352us; 354us; 356us; 358us; 360us; 362us; 364us; 366us; |]
-let _fsyacc_action_rows = 102
-let _fsyacc_actionTableElements = [|1us; 32768us; 28us; 6us; 0us; 49152us; 1us; 32768us; 28us; 6us; 0us; 49152us; 1us; 32768us; 1us; 5us; 0us; 16386us; 9us; 16410us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 52us; 7us; 22us; 24us; 46us; 26us; 49us; 31us; 43us; 39us; 19us; 1us; 32768us; 21us; 8us; 8us; 16410us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 52us; 24us; 46us; 26us; 49us; 31us; 43us; 39us; 34us; 1us; 32768us; 29us; 10us; 0us; 16387us; 1us; 32768us; 29us; 12us; 0us; 16388us; 0us; 16389us; 0us; 16390us; 0us; 16391us; 2us; 32768us; 36us; 14us; 37us; 13us; 0us; 16393us; 1us; 32768us; 20us; 20us; 2us; 16400us; 20us; 20us; 30us; 54us; 2us; 32768us; 36us; 14us; 37us; 13us; 0us; 16394us; 1us; 32768us; 39us; 23us; 1us; 32768us; 30us; 24us; 2us; 16396us; 7us; 22us; 39us; 18us; 1us; 32768us; 33us; 26us; 1us; 16392us; 20us; 16us; 1us; 32768us; 14us; 28us; 8us; 32768us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 52us; 24us; 46us; 26us; 49us; 31us; 43us; 39us; 34us; 0us; 16395us; 0us; 16397us; 1us; 16398us; 19us; 32us; 2us; 32768us; 7us; 22us; 39us; 18us; 0us; 16399us; 1us; 16400us; 30us; 54us; 1us; 16400us; 30us; 68us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 9us; 16401us; 10us; 91us; 11us; 92us; 12us; 90us; 13us; 93us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 1us; 32768us; 3us; 39us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 9us; 16402us; 10us; 91us; 11us; 92us; 12us; 90us; 13us; 93us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 0us; 16403us; 0us; 16404us; 8us; 16410us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 52us; 24us; 46us; 26us; 49us; 31us; 43us; 39us; 34us; 1us; 32768us; 34us; 45us; 0us; 16405us; 6us; 16414us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 1us; 32768us; 25us; 48us; 0us; 16406us; 6us; 16414us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 1us; 32768us; 27us; 51us; 0us; 16407us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 9us; 16408us; 10us; 91us; 11us; 92us; 12us; 90us; 13us; 93us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 6us; 16434us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 1us; 32768us; 33us; 56us; 0us; 16409us; 0us; 16411us; 1us; 16412us; 21us; 59us; 8us; 32768us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 52us; 24us; 46us; 26us; 49us; 31us; 43us; 39us; 34us; 0us; 16413us; 0us; 16415us; 10us; 32768us; 10us; 91us; 11us; 92us; 12us; 90us; 13us; 93us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 23us; 63us; 8us; 16410us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 52us; 24us; 46us; 26us; 49us; 31us; 43us; 39us; 34us; 1us; 16416us; 22us; 65us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 0us; 16417us; 0us; 16418us; 6us; 16434us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 1us; 32768us; 33us; 70us; 0us; 16419us; 0us; 16420us; 0us; 16421us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 10us; 32768us; 10us; 91us; 11us; 92us; 12us; 90us; 13us; 93us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 33us; 75us; 0us; 16422us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 1us; 16423us; 12us; 90us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 8us; 16424us; 10us; 91us; 11us; 92us; 12us; 90us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 0us; 16425us; 1us; 16426us; 12us; 90us; 1us; 16427us; 12us; 90us; 8us; 16428us; 10us; 91us; 11us; 92us; 12us; 90us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 3us; 16429us; 10us; 91us; 11us; 92us; 12us; 90us; 3us; 16430us; 10us; 91us; 11us; 92us; 12us; 90us; 3us; 16431us; 10us; 91us; 11us; 92us; 12us; 90us; 3us; 16432us; 10us; 91us; 11us; 92us; 12us; 90us; 3us; 16433us; 10us; 91us; 11us; 92us; 12us; 90us; 10us; 16436us; 10us; 91us; 11us; 92us; 12us; 90us; 13us; 93us; 14us; 94us; 15us; 95us; 16us; 97us; 17us; 96us; 18us; 98us; 19us; 100us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 0us; 16435us; 6us; 32768us; 9us; 78us; 11us; 76us; 30us; 73us; 39us; 35us; 41us; 72us; 42us; 71us; 0us; 16437us; |]
-let _fsyacc_actionTableRowOffsets = [|0us; 2us; 3us; 5us; 6us; 8us; 9us; 19us; 21us; 30us; 32us; 33us; 35us; 36us; 37us; 38us; 39us; 42us; 43us; 45us; 48us; 51us; 52us; 54us; 56us; 59us; 61us; 63us; 65us; 74us; 75us; 76us; 78us; 81us; 82us; 84us; 86us; 93us; 103us; 105us; 112us; 122us; 123us; 124us; 133us; 135us; 136us; 143us; 145us; 146us; 153us; 155us; 156us; 163us; 173us; 180us; 182us; 183us; 184us; 186us; 195us; 196us; 197us; 208us; 217us; 219us; 226us; 227us; 228us; 235us; 237us; 238us; 239us; 240us; 247us; 258us; 259us; 266us; 268us; 275us; 284us; 285us; 287us; 289us; 298us; 302us; 306us; 310us; 314us; 318us; 329us; 336us; 343us; 350us; 357us; 364us; 371us; 378us; 385us; 392us; 393us; 400us; |]
-let _fsyacc_reductionSymbolCounts = [|1us; 1us; 2us; 5us; 3us; 1us; 1us; 1us; 0us; 2us; 3us; 8us; 0us; 1us; 1us; 3us; 1us; 2us; 3us; 1us; 1us; 3us; 3us; 3us; 2us; 4us; 0us; 1us; 1us; 3us; 0us; 1us; 3us; 5us; 1us; 4us; 1us; 1us; 3us; 2us; 2us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 0us; 1us; 1us; 3us; |]
-let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 3us; 3us; 4us; 4us; 5us; 6us; 6us; 7us; 7us; 8us; 8us; 9us; 9us; 10us; 11us; 11us; 11us; 11us; 11us; 11us; 11us; 11us; 11us; 12us; 12us; 13us; 13us; 14us; 14us; 15us; 15us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 17us; 17us; 18us; 18us; |]
-let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 49152us; 65535us; 16386us; 65535us; 65535us; 65535us; 65535us; 16387us; 65535us; 16388us; 16389us; 16390us; 16391us; 65535us; 16393us; 65535us; 65535us; 65535us; 16394us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16395us; 16397us; 65535us; 65535us; 16399us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16403us; 16404us; 65535us; 65535us; 16405us; 65535us; 65535us; 16406us; 65535us; 65535us; 16407us; 65535us; 65535us; 65535us; 65535us; 16409us; 16411us; 65535us; 65535us; 16413us; 16415us; 65535us; 65535us; 65535us; 65535us; 16417us; 16418us; 65535us; 65535us; 16419us; 16420us; 16421us; 65535us; 65535us; 16422us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16435us; 65535us; 16437us; |]
+let _fsyacc_gotos = [| 0us; 65535us; 0us; 65535us; 1us; 65535us; 0us; 1us; 2us; 65535us; 0us; 4us; 2us; 3us; 2us; 65535us; 16us; 15us; 20us; 15us; 2us; 65535us; 16us; 17us; 20us; 21us; 1us; 65535us; 26us; 27us; 4us; 65535us; 6us; 31us; 24us; 31us; 32us; 31us; 43us; 31us; 2us; 65535us; 24us; 25us; 43us; 44us; 4us; 65535us; 6us; 7us; 24us; 30us; 32us; 33us; 43us; 30us; 28us; 65535us; 6us; 38us; 8us; 38us; 28us; 38us; 36us; 71us; 39us; 71us; 43us; 38us; 45us; 38us; 50us; 71us; 53us; 71us; 56us; 71us; 58us; 71us; 63us; 38us; 67us; 38us; 69us; 71us; 72us; 71us; 77us; 71us; 80us; 71us; 82us; 71us; 94us; 71us; 95us; 71us; 96us; 71us; 97us; 71us; 98us; 71us; 99us; 71us; 100us; 71us; 101us; 71us; 102us; 71us; 104us; 71us; 7us; 65535us; 6us; 62us; 8us; 62us; 28us; 29us; 43us; 62us; 45us; 62us; 63us; 62us; 67us; 62us; 5us; 65535us; 6us; 11us; 8us; 9us; 43us; 48us; 45us; 46us; 67us; 68us; 6us; 65535us; 6us; 61us; 8us; 61us; 43us; 61us; 45us; 61us; 63us; 64us; 67us; 61us; 2us; 65535us; 50us; 51us; 53us; 54us; 3us; 65535us; 50us; 65us; 53us; 65us; 69us; 70us; 21us; 65535us; 36us; 37us; 39us; 40us; 50us; 66us; 53us; 66us; 56us; 57us; 58us; 93us; 69us; 66us; 72us; 93us; 77us; 78us; 80us; 81us; 82us; 83us; 94us; 84us; 95us; 85us; 96us; 86us; 97us; 87us; 98us; 88us; 99us; 89us; 100us; 90us; 101us; 91us; 102us; 92us; 104us; 93us; 2us; 65535us; 58us; 59us; 72us; 73us; 3us; 65535us; 58us; 103us; 72us; 103us; 104us; 105us; |]
+let _fsyacc_sparseGotoTableRowOffsets = [|0us; 1us; 2us; 4us; 7us; 10us; 13us; 15us; 20us; 23us; 28us; 57us; 65us; 71us; 78us; 81us; 85us; 107us; 110us; |]
+let _fsyacc_stateToProdIdxsTableElements = [| 1us; 0us; 1us; 0us; 1us; 1us; 1us; 1us; 1us; 2us; 1us; 2us; 2us; 3us; 4us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 3us; 1us; 4us; 1us; 4us; 1us; 5us; 1us; 6us; 1us; 7us; 1us; 9us; 1us; 9us; 1us; 10us; 3us; 10us; 16us; 26us; 1us; 10us; 1us; 10us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 11us; 1us; 13us; 2us; 14us; 15us; 1us; 15us; 1us; 15us; 2us; 16us; 26us; 2us; 16us; 36us; 1us; 17us; 10us; 17us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 1us; 18us; 1us; 18us; 10us; 18us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 1us; 19us; 1us; 20us; 2us; 21us; 22us; 1us; 21us; 1us; 21us; 1us; 21us; 1us; 21us; 1us; 22us; 1us; 22us; 1us; 23us; 1us; 23us; 1us; 23us; 1us; 24us; 1us; 24us; 1us; 24us; 1us; 25us; 10us; 25us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 1us; 26us; 1us; 26us; 1us; 26us; 1us; 28us; 2us; 29us; 30us; 1us; 30us; 1us; 30us; 1us; 32us; 11us; 33us; 34us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 2us; 33us; 34us; 2us; 33us; 34us; 1us; 34us; 1us; 34us; 1us; 35us; 1us; 36us; 1us; 36us; 1us; 36us; 1us; 37us; 1us; 38us; 1us; 39us; 10us; 39us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 1us; 39us; 1us; 40us; 10us; 40us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 1us; 41us; 10us; 41us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 10us; 42us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 10us; 42us; 43us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 10us; 42us; 43us; 44us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 10us; 42us; 43us; 44us; 45us; 45us; 46us; 47us; 48us; 49us; 50us; 10us; 42us; 43us; 44us; 45us; 46us; 46us; 47us; 48us; 49us; 50us; 10us; 42us; 43us; 44us; 45us; 46us; 47us; 47us; 48us; 49us; 50us; 10us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 48us; 49us; 50us; 10us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 49us; 50us; 10us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 50us; 11us; 42us; 43us; 44us; 45us; 46us; 47us; 48us; 49us; 50us; 53us; 54us; 1us; 42us; 1us; 43us; 1us; 44us; 1us; 45us; 1us; 46us; 1us; 47us; 1us; 48us; 1us; 49us; 1us; 50us; 1us; 52us; 1us; 54us; 1us; 54us; |]
+let _fsyacc_stateToProdIdxsTableRowOffsets = [|0us; 2us; 4us; 6us; 8us; 10us; 12us; 15us; 17us; 19us; 21us; 23us; 25us; 27us; 29us; 31us; 33us; 35us; 37us; 39us; 43us; 45us; 47us; 49us; 51us; 53us; 55us; 57us; 59us; 61us; 63us; 65us; 68us; 70us; 72us; 75us; 78us; 80us; 91us; 93us; 95us; 106us; 108us; 110us; 113us; 115us; 117us; 119us; 121us; 123us; 125us; 127us; 129us; 131us; 133us; 135us; 137us; 139us; 150us; 152us; 154us; 156us; 158us; 161us; 163us; 165us; 167us; 179us; 182us; 185us; 187us; 189us; 191us; 193us; 195us; 197us; 199us; 201us; 203us; 214us; 216us; 218us; 229us; 231us; 242us; 253us; 264us; 275us; 286us; 297us; 308us; 319us; 330us; 341us; 353us; 355us; 357us; 359us; 361us; 363us; 365us; 367us; 369us; 371us; 373us; 375us; |]
+let _fsyacc_action_rows = 106
+let _fsyacc_actionTableElements = [|1us; 32768us; 28us; 6us; 0us; 49152us; 1us; 32768us; 28us; 6us; 0us; 49152us; 1us; 32768us; 1us; 5us; 0us; 16386us; 9us; 16411us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 56us; 7us; 22us; 24us; 50us; 26us; 53us; 31us; 43us; 39us; 19us; 1us; 32768us; 21us; 8us; 8us; 16411us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 56us; 24us; 50us; 26us; 53us; 31us; 43us; 39us; 34us; 1us; 32768us; 29us; 10us; 0us; 16387us; 1us; 32768us; 29us; 12us; 0us; 16388us; 0us; 16389us; 0us; 16390us; 0us; 16391us; 2us; 32768us; 36us; 14us; 37us; 13us; 0us; 16393us; 1us; 32768us; 20us; 20us; 2us; 16400us; 20us; 20us; 30us; 58us; 2us; 32768us; 36us; 14us; 37us; 13us; 0us; 16394us; 1us; 32768us; 39us; 23us; 1us; 32768us; 30us; 24us; 2us; 16396us; 7us; 22us; 39us; 18us; 1us; 32768us; 33us; 26us; 1us; 16392us; 20us; 16us; 1us; 32768us; 14us; 28us; 8us; 32768us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 56us; 24us; 50us; 26us; 53us; 31us; 43us; 39us; 34us; 0us; 16395us; 0us; 16397us; 1us; 16398us; 19us; 32us; 2us; 32768us; 7us; 22us; 39us; 18us; 0us; 16399us; 1us; 16400us; 30us; 58us; 1us; 16400us; 30us; 72us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 9us; 16401us; 10us; 95us; 11us; 96us; 12us; 94us; 13us; 97us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 1us; 32768us; 3us; 39us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 9us; 16402us; 10us; 95us; 11us; 96us; 12us; 94us; 13us; 97us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 0us; 16403us; 0us; 16404us; 10us; 16396us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 56us; 7us; 22us; 24us; 50us; 26us; 53us; 31us; 43us; 34us; 16411us; 39us; 19us; 1us; 32768us; 21us; 45us; 8us; 16411us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 56us; 24us; 50us; 26us; 53us; 31us; 43us; 39us; 34us; 1us; 32768us; 34us; 47us; 0us; 16405us; 1us; 32768us; 34us; 49us; 0us; 16406us; 6us; 16415us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 1us; 32768us; 25us; 52us; 0us; 16407us; 6us; 16415us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 1us; 32768us; 27us; 55us; 0us; 16408us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 9us; 16409us; 10us; 95us; 11us; 96us; 12us; 94us; 13us; 97us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 6us; 16435us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 1us; 32768us; 33us; 60us; 0us; 16410us; 0us; 16412us; 1us; 16413us; 21us; 63us; 8us; 32768us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 56us; 24us; 50us; 26us; 53us; 31us; 43us; 39us; 34us; 0us; 16414us; 0us; 16416us; 10us; 32768us; 10us; 95us; 11us; 96us; 12us; 94us; 13us; 97us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 23us; 67us; 8us; 16411us; 2us; 36us; 4us; 41us; 5us; 42us; 6us; 56us; 24us; 50us; 26us; 53us; 31us; 43us; 39us; 34us; 1us; 16417us; 22us; 69us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 0us; 16418us; 0us; 16419us; 6us; 16435us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 1us; 32768us; 33us; 74us; 0us; 16420us; 0us; 16421us; 0us; 16422us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 10us; 32768us; 10us; 95us; 11us; 96us; 12us; 94us; 13us; 97us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 33us; 79us; 0us; 16423us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 1us; 16424us; 12us; 94us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 8us; 16425us; 10us; 95us; 11us; 96us; 12us; 94us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 0us; 16426us; 1us; 16427us; 12us; 94us; 1us; 16428us; 12us; 94us; 8us; 16429us; 10us; 95us; 11us; 96us; 12us; 94us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 3us; 16430us; 10us; 95us; 11us; 96us; 12us; 94us; 3us; 16431us; 10us; 95us; 11us; 96us; 12us; 94us; 3us; 16432us; 10us; 95us; 11us; 96us; 12us; 94us; 3us; 16433us; 10us; 95us; 11us; 96us; 12us; 94us; 3us; 16434us; 10us; 95us; 11us; 96us; 12us; 94us; 10us; 16437us; 10us; 95us; 11us; 96us; 12us; 94us; 13us; 97us; 14us; 98us; 15us; 99us; 16us; 101us; 17us; 100us; 18us; 102us; 19us; 104us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 0us; 16436us; 6us; 32768us; 9us; 82us; 11us; 80us; 30us; 77us; 39us; 35us; 41us; 76us; 42us; 75us; 0us; 16438us; |]
+let _fsyacc_actionTableRowOffsets = [|0us; 2us; 3us; 5us; 6us; 8us; 9us; 19us; 21us; 30us; 32us; 33us; 35us; 36us; 37us; 38us; 39us; 42us; 43us; 45us; 48us; 51us; 52us; 54us; 56us; 59us; 61us; 63us; 65us; 74us; 75us; 76us; 78us; 81us; 82us; 84us; 86us; 93us; 103us; 105us; 112us; 122us; 123us; 124us; 135us; 137us; 146us; 148us; 149us; 151us; 152us; 159us; 161us; 162us; 169us; 171us; 172us; 179us; 189us; 196us; 198us; 199us; 200us; 202us; 211us; 212us; 213us; 224us; 233us; 235us; 242us; 243us; 244us; 251us; 253us; 254us; 255us; 256us; 263us; 274us; 275us; 282us; 284us; 291us; 300us; 301us; 303us; 305us; 314us; 318us; 322us; 326us; 330us; 334us; 345us; 352us; 359us; 366us; 373us; 380us; 387us; 394us; 401us; 408us; 409us; 416us; |]
+let _fsyacc_reductionSymbolCounts = [|1us; 1us; 2us; 5us; 3us; 1us; 1us; 1us; 0us; 2us; 3us; 8us; 0us; 1us; 1us; 3us; 1us; 2us; 3us; 1us; 1us; 5us; 3us; 3us; 3us; 2us; 4us; 0us; 1us; 1us; 3us; 0us; 1us; 3us; 5us; 1us; 4us; 1us; 1us; 3us; 2us; 2us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 3us; 0us; 1us; 1us; 3us; |]
+let _fsyacc_productionToNonTerminalTable = [|0us; 1us; 2us; 3us; 3us; 4us; 4us; 5us; 6us; 6us; 7us; 7us; 8us; 8us; 9us; 9us; 10us; 11us; 11us; 11us; 11us; 11us; 11us; 11us; 11us; 11us; 11us; 12us; 12us; 13us; 13us; 14us; 14us; 15us; 15us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 16us; 17us; 17us; 18us; 18us; |]
+let _fsyacc_immediateActions = [|65535us; 49152us; 65535us; 49152us; 65535us; 16386us; 65535us; 65535us; 65535us; 65535us; 16387us; 65535us; 16388us; 16389us; 16390us; 16391us; 65535us; 16393us; 65535us; 65535us; 65535us; 16394us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16395us; 16397us; 65535us; 65535us; 16399us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16403us; 16404us; 65535us; 65535us; 65535us; 65535us; 16405us; 65535us; 16406us; 65535us; 65535us; 16407us; 65535us; 65535us; 16408us; 65535us; 65535us; 65535us; 65535us; 16410us; 16412us; 65535us; 65535us; 16414us; 16416us; 65535us; 65535us; 65535us; 65535us; 16418us; 16419us; 65535us; 65535us; 16420us; 16421us; 16422us; 65535us; 65535us; 16423us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 65535us; 16436us; 65535us; 16438us; |]
 let _fsyacc_reductions ()  =    [| 
-# 388 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 389 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -394,7 +395,7 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startMain));
-# 397 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 398 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -403,7 +404,7 @@ let _fsyacc_reductions ()  =    [|
                       raise (Microsoft.FSharp.Text.Parsing.Accept(Microsoft.FSharp.Core.Operators.box _1))
                    )
                  : '_startProg));
-# 406 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 407 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Program)) in
             Microsoft.FSharp.Core.Operators.box
@@ -414,7 +415,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 39 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 417 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 418 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
@@ -426,7 +427,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 42 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 429 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 430 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
@@ -437,7 +438,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 43 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Program));
-# 440 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 441 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -447,7 +448,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 46 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 450 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 451 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -457,7 +458,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 47 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 460 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 461 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             Microsoft.FSharp.Core.Operators.box
@@ -468,7 +469,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 50 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ));
-# 471 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 472 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -478,7 +479,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 53 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ option));
-# 481 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 482 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
             Microsoft.FSharp.Core.Operators.box
@@ -489,7 +490,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 54 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Typ option));
-# 492 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 493 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Typ)) in
@@ -501,7 +502,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 57 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
-# 504 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 505 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
@@ -515,7 +516,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 58 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec));
-# 518 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 519 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -525,7 +526,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 61 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 528 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 529 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
             Microsoft.FSharp.Core.Operators.box
@@ -536,7 +537,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 62 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 539 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 540 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec)) in
             Microsoft.FSharp.Core.Operators.box
@@ -547,7 +548,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 65 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 550 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 551 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Dec)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
@@ -559,7 +560,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 66 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Dec list));
-# 562 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 563 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             Microsoft.FSharp.Core.Operators.box
@@ -570,7 +571,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 69 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Access));
-# 573 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 574 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
@@ -581,7 +582,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 72 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 584 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 585 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
@@ -593,7 +594,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 73 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 596 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 597 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -603,7 +604,7 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 74 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 606 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 607 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
@@ -613,140 +614,152 @@ let _fsyacc_reductions ()  =    [|
                    )
 # 75 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 616 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 617 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+        (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
+            let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Dec list)) in
+            let _4 = (let data = parseState.GetInput(4) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
+            Microsoft.FSharp.Core.Operators.box
+                (
+                   (
+# 76 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+                                                             Block(_2, _4) 
+                   )
+# 76 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+                 : Stm));
+# 629 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 76 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 77 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Block([], _2) 
                    )
-# 76 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 77 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 627 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 640 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : GuardedCommand)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 77 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 78 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Alt _2 
                    )
-# 77 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 78 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 638 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 651 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : GuardedCommand)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 78 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 79 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Do _2  
                    )
-# 78 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 79 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 649 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 662 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 79 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 80 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Return _2 
                    )
-# 79 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 80 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 660 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 673 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ExpL)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 80 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 81 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Call(_1,_3) 
                    )
-# 80 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 81 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm));
-# 672 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 685 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 83 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 84 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [] 
                    )
-# 83 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 84 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 682 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 695 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 84 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 85 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 
                    )
-# 84 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 85 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 693 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 706 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 87 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 88 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [_1] 
                    )
-# 87 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 88 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 704 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 717 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Stm)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 88 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 89 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 :: _3 
                    )
-# 88 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 89 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Stm list));
-# 716 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 729 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 91 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 92 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              GC [] 
                    )
-# 91 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 92 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
-# 726 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 739 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : (Exp * Stm list) list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 92 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 93 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              GC _1 
                    )
-# 92 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 93 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : GuardedCommand));
-# 737 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 750 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 95 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 96 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [(_1,_3)]   
                    )
-# 95 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 96 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
-# 749 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 762 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Stm list)) in
@@ -754,243 +767,243 @@ let _fsyacc_reductions ()  =    [|
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 96 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 97 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                          (_1,_3)::_5 
                    )
-# 96 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 97 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : (Exp * Stm list) list));
-# 762 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 775 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Access)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 99 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 100 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Access _1 
                    )
-# 99 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 100 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 773 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 786 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : string)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ExpL)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 100 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 101 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply(_1,_3) 
                    )
-# 100 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 101 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 785 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 798 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : int)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 101 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 102 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              N _1 
                    )
-# 101 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 102 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 796 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 809 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : bool)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 102 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 103 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              B _1 
                    )
-# 102 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 103 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 807 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 820 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 103 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 104 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _2 
                    )
-# 103 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 104 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 818 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 831 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 104 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 105 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("-", [_2])
                    )
-# 104 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 105 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 829 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 842 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _2 = (let data = parseState.GetInput(2) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 105 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 106 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("!", [_2])
                    )
-# 105 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 106 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 840 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 853 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 106 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 107 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("*", [_1; _3])
                    )
-# 106 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 107 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 852 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 865 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 107 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 108 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("+", [_1; _3])
                    )
-# 107 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 108 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 864 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 877 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 108 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 109 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("-", [_1; _3])
                    )
-# 108 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 109 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 876 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 889 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 109 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 110 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("&&", [_1; _3])
                    )
-# 109 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 110 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 888 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 901 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 110 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 111 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("=", [_1; _3])
                    )
-# 110 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 111 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 900 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 913 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 111 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 112 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<=", [_1; _3])
                    )
-# 111 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 112 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 912 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 925 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 112 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 113 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply(">", [_1; _3])
                    )
-# 112 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 113 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 924 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 937 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 113 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 114 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<", [_1; _3])
                    )
-# 113 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 114 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 936 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 949 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 114 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 115 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              Apply("<>", [_1; _3])
                    )
-# 114 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 115 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : Exp));
-# 948 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 961 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 117 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 118 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [] 
                    )
-# 117 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 118 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : 'ExpL));
-# 958 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 971 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : 'ExpList)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 118 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 119 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 
                    )
-# 118 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 119 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : 'ExpL));
-# 969 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 982 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 121 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 122 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              [_1] 
                    )
-# 121 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 122 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : 'ExpList));
-# 980 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 993 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
         (fun (parseState : Microsoft.FSharp.Text.Parsing.IParseState) ->
             let _1 = (let data = parseState.GetInput(1) in (Microsoft.FSharp.Core.Operators.unbox data : Exp)) in
             let _3 = (let data = parseState.GetInput(3) in (Microsoft.FSharp.Core.Operators.unbox data : 'ExpList)) in
             Microsoft.FSharp.Core.Operators.box
                 (
                    (
-# 122 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 123 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                                                              _1 :: _3 
                    )
-# 122 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
+# 123 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fsy"
                  : 'ExpList));
 |]
-# 993 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
+# 1006 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Parser.fs"
 let tables () : Microsoft.FSharp.Text.Parsing.Tables<_> = 
   { reductions= _fsyacc_reductions ();
     endOfInputTag = _fsyacc_endOfInputTag;
