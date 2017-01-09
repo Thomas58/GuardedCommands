@@ -25,7 +25,7 @@ module AST =
    type Stm  =                            
           | PrintLn of Exp               (* Print                          *) 
           | Ass of Access * Exp          (* x:=e  or  p^:=e  or  a[e]:=e   *)
-          | Return of Exp option         (* Return from function           *)   
+          | Return of Exp                (* Return from function           *)   
           | Alt of GuardedCommand        (* Alternative statement          *) 
           | Do of GuardedCommand         (* Repetition statement           *) 
           | Block of Dec list * Stm list (* Block: grouping and scope      *)

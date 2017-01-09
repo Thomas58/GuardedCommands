@@ -47,8 +47,13 @@ module CodeGeneration =
                                           | "="  -> [EQ] 
                                           | _    -> failwith "CE: this case is not possible"
                                 CE vEnv fEnv e1 @ CE vEnv fEnv e2 @ ins 
-
+       | Apply(f,es)     -> match Map.tryFind f fEnv with
+                            | None -> failwith "CE: unknown function"
+                            | Some (label, topt, paramDecs) -> CEs vEnv fEnv es @ [CALL(List.length paramDecs, label)]
+                            
        | _            -> failwith "CE: not supported yet"
+
+   and CEs vEnv fEnv es = List.collect (CE vEnv fEnv) es 
        
 
 /// CA vEnv fEnv acc gives the code for an access acc on the basis of a variable and a function environment
@@ -96,6 +101,8 @@ module CodeGeneration =
                                 CSs vEnv fEnv stms @ [GOTO labstart; Label labfalse]                             
                                 ) [] list
 
+       | Return e         -> CE vEnv fEnv e @ [RET (snd vEnv)]
+
        | stm              -> failwith("CS: this statement is not supported yet" + string stm)
 
    and CSs vEnv fEnv stms = List.collect (CS vEnv fEnv) stms 
@@ -107,7 +114,7 @@ module CodeGeneration =
 (* Build environments for global variables and functions *)
 
    let makeGlobalEnvs decs = 
-       let rec addv decs vEnv fEnv = 
+       let rec addv decs vEnv (fEnv:funEnv) = 
            match decs with 
            | []         -> (vEnv, fEnv, [])
            | dec::decr  -> 
@@ -115,7 +122,14 @@ module CodeGeneration =
              | VarDec (typ, var) -> let (vEnv1, code1) = allocate GloVar (typ, var) vEnv
                                     let (vEnv2, fEnv2, code2) = addv decr vEnv1 fEnv
                                     (vEnv2, fEnv2, code1 @ code2)
-             | FunDec (tyOpt, f, xs, body) -> failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
+
+             | FunDec (topt, f, decs, stm) -> 
+                                              let paramDecs = List.fold (fun acc dec -> match dec with
+                                                                                        | VarDec(t,s) -> (t,s)::acc
+                                                                                        | _           -> failwith "illegal declaration" ) [] decs
+                                              ignore(Map.add f (newLabel(), topt, paramDecs) fEnv)
+                                              
+                                              failwith "makeGlobalEnvs: function/procedure declarations not supported yet"
        addv decs (Map.empty, 0) Map.empty
 
 /// CP prog gives the code for a program prog

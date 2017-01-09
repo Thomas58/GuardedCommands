@@ -9,8 +9,9 @@ let keyword s =
     match s with
     | "bool"      -> BTYP
     | "int"       -> ITYP
-    | "function"  -> FUNDEC
     | "return"    -> RET
+    | "function"  -> FUNC
+    | "procedure" -> PROC
     | "print"     -> PRINT 
     | "skip"      -> SKIP
     | "abort"     -> ABORT

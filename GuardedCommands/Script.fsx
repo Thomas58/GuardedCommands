@@ -34,7 +34,7 @@ System.IO.Directory.SetCurrentDirectory @"C:\Users\Helge\git\GuardedCommands\Gua
 
 // The Ex0.gc example:
 
-let ex0Tree = parseFromFile "Ex0.gc";;
+let ex0Tree = parseFromFile "Ex7.gc";;
 
 let _ = tcP ex0Tree;;
 
@@ -75,7 +75,7 @@ List.iter execOpt ["Ex1.gc"; "Ex2.gc"];;
 let pts = List.map parseFromFile ["Ex1.gc"; "Ex2.gc";"Ex3.gc"; "Ex4.gc"; "Ex5.gc"; "Ex6.gc"; "Skip.gc"];;
 
 // The parse tree for Ex3.gc
-List.item 2 pts;
+List.item 0 pts;
 (*
 // Test of programs covered by the first task (Section 3.7):
 List.iter exec ["Ex1.gc"; "Ex2.gc";"Ex3.gc"; "Ex4.gc"; "Ex5.gc"; "Ex6.gc"; "Skip.gc"];;

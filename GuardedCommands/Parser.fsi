@@ -7,8 +7,9 @@ type token =
   | ASG
   | SKIP
   | ABORT
-  | FUNDEC
   | RET
+  | FUNC
+  | PROC
   | NEG
   | PLUS
   | MINUS
@@ -50,8 +51,9 @@ type tokenId =
     | TOKEN_ASG
     | TOKEN_SKIP
     | TOKEN_ABORT
-    | TOKEN_FUNDEC
     | TOKEN_RET
+    | TOKEN_FUNC
+    | TOKEN_PROC
     | TOKEN_NEG
     | TOKEN_PLUS
     | TOKEN_MINUS
@@ -96,7 +98,6 @@ type nonTerminalId =
     | NONTERM_BasicTyp
     | NONTERM_Typ
     | NONTERM_TypOpt
-    | NONTERM_RetOpt
     | NONTERM_Dec
     | NONTERM_DecL
     | NONTERM_DecList
