@@ -53,7 +53,7 @@ rule tokenize =
   | ":"         { COLON }
   | "|"         { BAR }
   | "->"        { TO }
-  | ":="        { ASG   }
+  | ":="        { ASG }
   | "!"         { NEG }
   | "&&"        { AND }
   | "<>"        { NEQ }

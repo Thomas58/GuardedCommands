@@ -21,14 +21,14 @@ procedure qs(a: int[], i: int, j:int) =
 
 procedure quicksort(a: int[], len: int) = qs(a, 0, len - 1) ,
 
-a: int[1500],
+a: int[4],
 len: int, 
 i: int;
 i:= 0;
-len:= 1500;
+len:= 4;
 
 do i<len -> a[i] := len-i; i:= i+1 od;
-a[120]:= 3;
+a[0]:= 2;
 
 quicksort(a,len)
 end

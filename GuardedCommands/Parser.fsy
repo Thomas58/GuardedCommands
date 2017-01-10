@@ -6,7 +6,7 @@ open GuardedCommands.Frontend.AST
 %token <bool> BOOL
 %token <string> STRING
 %token <string> NAME
-%token ITYP BTYP ATYP
+%token ITYP BTYP
 %token LP LCP LSP RP RCP RSP
 %token IF FI DO OD BEGIN END
 %token COMMA COLON SEMI BAR TO HAT AT
@@ -17,19 +17,19 @@ open GuardedCommands.Frontend.AST
 
 %left AND
 %nonassoc NEG
-%left EQ LE LT GT NEQ
+%left EQ LE LT GT GE NEQ
 %left PLUS MINUS 
 %left TIMES
 
 %start Main Prog 
 %type <Exp> Exp
+%type <Exp list> ExpL ExpList
 %type <Access> Access
 %type <(Exp * Stm list) list> GCList
 %type <GuardedCommand> GuardedCommand
-%type <Stm list> StmList StmL
 %type <Stm> Stm
+%type <Stm list> StmList StmL
 %type <Typ> BasicTyp Typ
-%type <Typ option> TypOpt
 %type <Dec> Dec
 %type <Dec list> DecL DecList
 %type <Program> Main Prog
@@ -48,14 +48,14 @@ BasicTyp:
 
 Typ:
     BasicTyp                          { $1 }
-	
-ATyp:
-     BasicTyp LSP RSP                  { ATyp($1,None) }
-   | BasicTyp LSP INT RSP              { ATyp($1,Some($3)) }
 
 TypOpt:
 										{ None }
    | COLON Typ                          { Some($2) }
+	
+ATyp:
+     BasicTyp LSP RSP                  { ATyp($1,None) }
+   | BasicTyp LSP INT RSP              { ATyp($1,Some($3)) }
 
 Dec: 
      NAME COLON Typ                     { VarDec($3,$1) }
@@ -74,8 +74,8 @@ DecList:
 
 Access:
     NAME                              { AVar $1 }
+  | Access HAT                        { ADeref (Access $1) }
   | Access LSP Exp RSP                { AIndex($1,$3) }
-  | Exp HAT                           { ADeref $1 }
       
 Stm:
     PRINT Exp                         { PrintLn $2 }
