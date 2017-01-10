@@ -5,19 +5,20 @@ open System
 open Machine
 open GuardedCommands.Frontend.AST
 
-module TypeCheck = 
+module TypeCheck =     
 
 /// tcE gtenv ltenv e gives the type for expression e on the basis of type environments gtenv and ltenv
 /// for global and local variables 
    let rec tcE gtenv ltenv = function                            
          | N _              -> ITyp   
          | B _              -> BTyp   
-         | Access acc       -> tcA gtenv ltenv acc     
+         | Access acc       -> tcA gtenv ltenv acc    
+         | Addr acc         -> tcA gtenv ltenv acc
                    
          | Apply(f,[e])     when List.exists (fun x ->  x=f) ["-"; "!"]  
                             -> tcMonadic gtenv ltenv f e        
 
-         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+"; "-"; "*"; "="; "&&"]        
+         | Apply(f,[e1;e2]) when List.exists (fun x ->  x=f) ["+"; "-"; "*"; "="; "&&"; "<>"; "<"; "<="; ">"; ">="]        
                             -> tcDyadic gtenv ltenv f e1 e2   
 
          | Apply(f,es)      -> tcNaryFunction gtenv ltenv f es
@@ -30,21 +31,30 @@ module TypeCheck =
                                    | _           -> failwith "illegal/illtyped monadic expression" 
    
    and tcDyadic gtenv ltenv f e1 e2 = match (f, tcE gtenv ltenv e1, tcE gtenv ltenv e2) with
-                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+"; "-"; "*"] -> ITyp
-                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["="]           -> BTyp
-                                      | (o, BTyp, BTyp) when List.exists (fun x ->  x=o) ["&&";"="]      -> BTyp 
+                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["+"; "-"; "*"]                    -> ITyp
+                                      | (o, ITyp, ITyp) when List.exists (fun x ->  x=o) ["="; "<>"; "<"; "<="; ">"; ">="]  -> BTyp
+                                      | (o, BTyp, BTyp) when List.exists (fun x ->  x=o) ["&&";"="]                         -> BTyp 
                                       | _ -> failwith("illegal/illtyped dyadic expression: " + f)
 
-   and tcNaryFunction gtenv ltenv f es = match Map.tryFind f gtenv with
-                                         | Some (FTyp(typs,topt))  -> List.iter2 (fun typ exp -> if typ = tcE gtenv ltenv exp then () 
-                                                                                                 else failwith "illtyped parameter") typs es
-                                                                      match topt with 
-                                                                      | Some typ  -> typ
-                                                                      | None      -> failwith "illtyped void function"
-                                         
-                                         | t                       -> failwith ("tcE: unknown function" + string t)
+   and matchParams gtenv ltenv typs exps = List.iter2 (fun typ exp -> 
+        match typ with
+        | PTyp t | ATyp (t,_) when t = tcE gtenv ltenv exp -> ()
+        | _                 when typ = tcE gtenv ltenv exp -> ()
+        | _                                       -> failwith "illtyped parameter") typs exps
+
+   and tcNaryFunction gtenv ltenv f es =    
+        match Map.tryFind f gtenv with
+        | Some (FTyp(typs,topt))  -> matchParams gtenv ltenv typs es
+                                     match topt with 
+                                     | Some typ  -> typ
+                                     | None      -> failwith "illtyped void function"
+        
+        | _                       -> failwith ("tcE: unknown function" + string f)
  
-   and tcNaryProcedure gtenv ltenv f es = failwith "type check: procedures not supported yet"
+   and tcNaryProcedure gtenv ltenv f es =    
+        match Map.tryFind f gtenv with
+        | Some (FTyp(typs,topt))  -> matchParams gtenv ltenv  typs es        
+        | _                       -> failwith ("tcE: unknown function" + string f)
       
 
 /// tcA gtenv ltenv e gives the type for access acc on the basis of type environments gtenv and ltenv
@@ -56,16 +66,17 @@ module TypeCheck =
                                          | None   -> failwith ("no declaration for : " + x)
                                          | Some t -> t
                              | Some t -> t            
-         | AIndex(acc, e) -> failwith "tcA: array indexing not supported yes"
-         | ADeref e       -> failwith "tcA: pointer dereferencing not supported yes"
- 
+         | AIndex(acc, e) -> if tcE gtenv ltenv e <> ITyp 
+                             then failwith "illtyped index expr"
+                             else tcA gtenv ltenv acc
+         | ADeref e       -> tcE gtenv ltenv e
 
 /// tcS gtenv ltenv retOpt s checks the well-typeness of a statement s on the basis of type environments gtenv and ltenv
 /// for global and local variables and the possible type of return expressions 
    and tcS gtenv ltenv retOpt = function                           
                          | PrintLn e -> ignore(tcE gtenv ltenv e)
                          | Ass(acc,e) -> if tcA gtenv ltenv acc = tcE gtenv ltenv e then ()
-                                         else failwith "illtyped assignment"                                
+                                         else failwith "illtyped assignment"                          
 
                          | Block(decs,stms) -> List.iter (tcS gtenv (tcLDecs ltenv decs) retOpt) stms
 
@@ -76,12 +87,16 @@ module TypeCheck =
                                                             else failwith "illtyped guarded command") list
 
                          | Return e     -> if retOpt = Some(tcE gtenv ltenv e) then ()
-                                           else failwith "illtyped return"
+                                           else failwith("illtyped return: " + string e)
+
+                         | Call(f,es)   -> tcNaryProcedure gtenv ltenv f es
                                                                    
-                         | stm            -> failwith ("tcS: this statement is not supported yet" + string stm)
+                         //| stm            -> failwith ("tcS: this statement is not supported yet" + string stm)
 
    and tcGDec gtenv = function  
-                      | VarDec(t,s)               -> Map.add s t gtenv
+                      | VarDec(t,s)               -> match t with
+                                                     | ATyp(typ,_) | PTyp typ -> Map.add s typ gtenv
+                                                     | _                      -> Map.add s t gtenv
                       | FunDec(topt,f, decs, stm) -> let ltenv = tcLDecs Map.empty decs
                                                      let typs = List.fold (fun acc dec -> match dec with
                                                                                           | VarDec(t,s) -> t::acc
@@ -97,7 +112,9 @@ module TypeCheck =
    and tcLDec ltenv = function
                       | VarDec(t,s) -> if Map.containsKey s ltenv
                                        then failwith "duplicate formal parameter"
-                                       else Map.add s t ltenv
+                                       else match t with
+                                            | ATyp(typ,_) | PTyp typ -> Map.add s typ ltenv
+                                            | _                      -> Map.add s t ltenv
                       | _           -> failwith "illegal local declaration"
                                  
    and tcLDecs ltenv = function

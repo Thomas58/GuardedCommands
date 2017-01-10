@@ -79,21 +79,21 @@ List.item 0 pts;
 (*
 // Test of programs covered by the first task (Section 3.7):
 List.iter exec ["Ex1.gc"; "Ex2.gc";"Ex3.gc"; "Ex4.gc"; "Ex5.gc"; "Ex6.gc"; "Skip.gc"];;
-*)
 
 // Test of programs covered by the second task (Section 4.3):
 List.iter exec ["Ex7.gc"; "fact.gc"; "factRec.gc"; "factCBV.gc"];;
 
-(*
 // Test of programs covered by the fourth task (Section 5.4):
 List.iter exec ["A0.gc"; "A1.gc"; "A2.gc"; "A3.gc"];;
 
 // Test of programs covered by the fifth task (Section 6.1):
 List.iter exec ["A4.gc"; "Swap.gc"; "QuickSortV1.gc"];;
+*)
 
 // Test of programs covered by the fifth task (Section 7.4):
 List.iter exec ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
 
+(*
 // Test of programs covered by the fifth task using optimized compilation (Section 8.2):
 List.iter execOpt ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
 

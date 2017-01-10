@@ -60,10 +60,13 @@ rule tokenize =
   | "<"         { LT }
   | ">"         { GT }
   | "<="        { LE } 
+  | ">="        { GE }
   | "*"         { TIMES }
   | "-"         { MINUS }
   | "="         { EQ }
   | "+"         { PLUS }   
+  | "^"         { HAT }
+  | "&"         { AT }
   | identifier  { keyword(Encoding.UTF8.GetString(lexbuf.Lexeme)) }
   | eof         { EOF }
 

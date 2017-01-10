@@ -45,6 +45,7 @@ module CodeGeneration =
         | N n          -> [CSTI n]
         | B b          -> [CSTI (if b then 1 else 0)]
         | Access acc   -> CA vEnv fEnv acc @ [LDI] 
+        | Addr acc     -> CA vEnv fEnv acc 
 
         | Apply("-", [e]) -> CE vEnv fEnv e @ [CSTI 0; SWAP; SUB]
 
@@ -55,12 +56,17 @@ module CodeGeneration =
                                  CE vEnv fEnv b1 @ [IFZERO labfalse] @ CE vEnv fEnv b2
                                  @ [GOTO labend; Label labfalse; CSTI 0; Label labend]
 
-        | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "-"; "*"; "="]
+        | Apply(o,[e1;e2]) when List.exists (fun x -> o=x) ["+"; "-"; "*"; "="; "<>"; "<"; "<="; ">"; ">="]
                                 -> let ins = match o with
                                              | "+"  -> [ADD]
                                              | "-"  -> [SUB]
                                              | "*"  -> [MUL]
                                              | "="  -> [EQ] 
+                                             | "<>" -> [EQ; NOT]
+                                             | "<"  -> [LT]
+                                             | ">=" -> [LT; NOT]
+                                             | ">"  -> [SWAP; LT]
+                                             | "<=" -> [SWAP; LT; NOT]
                                              | _    -> failwith "CE: this case is not possible"
                                    CE vEnv fEnv e1 @ CE vEnv fEnv e2 @ ins 
 
@@ -76,8 +82,8 @@ module CodeGeneration =
     and CA vEnv fEnv = function | AVar x         -> match Map.find x (fst vEnv) with
                                                     | (GloVar addr,_) -> [CSTI addr]
                                                     | (LocVar addr,_) -> [GETBP; CSTI addr; ADD]
-                                | AIndex(acc, e) -> failwith "CA: array indexing not supported yet" 
-                                | ADeref e       -> failwith "CA: pointer dereferencing not supported yet"
+                                | AIndex(acc, e) -> CA vEnv fEnv acc @ [LDI] @ CE vEnv fEnv e @ [ADD]
+                                | ADeref e       -> CE vEnv fEnv e
 
   
 (* Bind declared variable in env and generate code to allocate it: *)   
@@ -86,7 +92,10 @@ module CodeGeneration =
         match typ with
         | ATyp (ATyp _, _) -> 
             raise (Failure "allocate: array of arrays not permitted")
-        | ATyp (t, Some i) -> failwith "allocate: array not supported yet"
+        | ATyp (t, Some i) -> 
+            let newEnv = (Map.add x (kind (fdepth+i), typ) env, fdepth+i+1)
+            let code = [INCSP i; GETSP; CSTI (i-1); SUB]
+            (newEnv, code)
         | _ -> 
             let newEnv = (Map.add x (kind fdepth, typ) env, fdepth+1)
             let code = [INCSP 1]
@@ -107,17 +116,17 @@ module CodeGeneration =
         | Ass(acc,e)       -> CA vEnv fEnv acc @ CE vEnv fEnv e @ [STI; INCSP -1]
 
         | Block(decs,stms) -> let (newEnv, code) = addLocalVars vEnv decs
-                              code @ CSs newEnv fEnv stms
+                              code @ CSs newEnv fEnv stms @ [INCSP (snd vEnv - snd newEnv)]
 
-        | Alt (GC [])      -> raise (Failure "Alt: abort abnormally")
-        | Alt (GC list)    -> let labend = newLabel()
+        | Alt(GC [])       -> raise (Failure "Alt: abort abnormally")
+        | Alt(GC list)     -> let labend = newLabel()
                               List.fold (fun acc (e,stms) -> 
                                   let labfalse = newLabel() 
                                   acc @ CE vEnv fEnv e @ [IFZERO labfalse] @ 
                                   CSs vEnv fEnv stms @ [GOTO labend; Label labfalse]
                                   ) [] list @ [STOP; Label labend]
 
-        | Do (GC list)      -> List.fold (fun acc (e,stms) -> 
+        | Do(GC list)       -> List.fold (fun acc (e,stms) -> 
                                   let labstart = newLabel()
                                   let labfalse = newLabel()
                                   acc @ [Label labstart] @ CE vEnv fEnv e @ [IFZERO labfalse] @ 
@@ -126,7 +135,10 @@ module CodeGeneration =
 
         | Return e         -> CE vEnv fEnv e @ [RET (snd vEnv)]
 
-        | stm              -> failwith("CS: this statement is not supported yet" + string stm)
+        | Call(f,es)       -> let (label, _, paramDecs) = findFunction f fEnv
+                              CEs vEnv fEnv es @ [CALL(List.length paramDecs, label)] @ [INCSP -1]
+
+        //| stm              -> failwith("CS: this statement is not supported yet" + string stm)
 
     and CSs vEnv fEnv stms = List.collect (CS vEnv fEnv) stms 
 

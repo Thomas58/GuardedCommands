@@ -19,12 +19,15 @@ type token =
   | LE
   | LT
   | GT
+  | GE
   | NEQ
   | COMMA
   | COLON
   | SEMI
   | BAR
   | TO
+  | HAT
+  | AT
   | IF
   | FI
   | DO
@@ -39,7 +42,7 @@ type token =
   | RSP
   | ITYP
   | BTYP
-  | FTYP
+  | ATYP
   | NAME of (string)
   | STRING of (string)
   | BOOL of (bool)
@@ -63,12 +66,15 @@ type tokenId =
     | TOKEN_LE
     | TOKEN_LT
     | TOKEN_GT
+    | TOKEN_GE
     | TOKEN_NEQ
     | TOKEN_COMMA
     | TOKEN_COLON
     | TOKEN_SEMI
     | TOKEN_BAR
     | TOKEN_TO
+    | TOKEN_HAT
+    | TOKEN_AT
     | TOKEN_IF
     | TOKEN_FI
     | TOKEN_DO
@@ -83,7 +89,7 @@ type tokenId =
     | TOKEN_RSP
     | TOKEN_ITYP
     | TOKEN_BTYP
-    | TOKEN_FTYP
+    | TOKEN_ATYP
     | TOKEN_NAME
     | TOKEN_STRING
     | TOKEN_BOOL
@@ -97,6 +103,7 @@ type nonTerminalId =
     | NONTERM_Prog
     | NONTERM_BasicTyp
     | NONTERM_Typ
+    | NONTERM_ATyp
     | NONTERM_TypOpt
     | NONTERM_Dec
     | NONTERM_DecL
