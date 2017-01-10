@@ -49,7 +49,7 @@ module CodeGeneration =
 
         | Apply("-", [e]) -> CE vEnv fEnv e @ [CSTI 0; SWAP; SUB]
 
-        | Apply("!", [e]) -> CE vEnv fEnv e @ [CSTI 1; SWAP; SUB]
+        | Apply("!", [e]) -> CE vEnv fEnv e @ [NOT]
 
         | Apply("&&",[b1;b2]) -> let labend   = newLabel()
                                  let labfalse = newLabel()
@@ -107,7 +107,7 @@ module CodeGeneration =
                            | VarDec (typ, var) -> let (vEnv1, code1) = allocate LocVar (typ, var) vEnv
                                                   let (vEnv2, code2) = addLocalVars vEnv1 decr
                                                   (vEnv2, code1 @ code2)
-                           | _                 -> failwith("addLocalVars")
+                           | _                 -> failwith "addLocalVars"
                       
 /// CS vEnv fEnv s gives the code for a statement s on the basis of a variable and a function environment                          
     let rec CS vEnv fEnv = function

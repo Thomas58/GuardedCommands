@@ -1,6 +1,6 @@
 ﻿begin
   x : int,
-  procedure p(y: ^int) = { print y^; y^ := 1 };
+  procedure p(y: ^int) = { v:int; v:=3; print y^; y^ := v };
   x:= 0;
   p(&x);
   print x
