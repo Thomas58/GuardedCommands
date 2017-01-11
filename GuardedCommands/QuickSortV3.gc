@@ -4,42 +4,39 @@ procedure swap(a: int[], i: int, j: int) =
 
 procedure printA(a: int[], len:int) = {i: int;  i:= 0; do ! i=len -> print a[i]; i:= i+1 od},
 
-procedure partition(a : int[], lo: int, hi: int, p: ^int) =
+function partition(a : int[], lo: int, hi: int): int =
 {  pivot : int,
    swapPoint : int,
    iter : int;
 
-   pivot := a[lo];
+   pivot := a[hi];
    swapPoint := lo;
    iter := lo;
 
-   do iter <= hi - 1
-   | a[iter] <= pivot -> swap(a, swapPoint, iter);
-                         swapPoint := swapPoint + 1
+   do iter < hi - 1 && a[iter] <= pivot -> swap(a, swapPoint, iter);
+											swapPoint := swapPoint + 1
+   | iter < hi - 1 -> iter := iter + 1
   od ;
-  swap(a, swapPoint, hi)
+  swap(a, swapPoint, hi);
 
-  p^ := swapPoint
+  return swapPoint
 },
 
-procedure qs(a: int[], i: int, j:int) =
+procedure qs(a: int[], lo: int, hi:int) =
 { p: int ;
-  if i<j -> partition(a, i, j, &p);
-		        qs(a,i,p - 1);
-		        qs(a,p + 1,j)
+  if lo<hi ->   p := partition(a, lo, hi); qs(a,lo,p - 1); qs(a,p + 1,hi)
   | true -> skip
   fi },
 
 procedure quicksort(a: int[], len: int) = qs(a, 0, len - 1) ,
 
-a: int[15],
+a: int[4],
 len: int,
 i: int ;
-len := 15;
+len := 4;
 i := 0 ;
 do i< len-> a[i] := len-i; i:= i+1 od;
 
-a[1]:= 3;
 
-quicksort(a,len)
+quicksort(a, len)
 end

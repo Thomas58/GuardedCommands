@@ -1,0 +1,15 @@
+﻿begin
+  procedure moo(p : ^int, q : ^int) = {
+	print q^ >  p^;
+	print q^ >= q^;
+	print p^ <  q^;
+	print p^ <= p^
+  },
+  p : int,
+  q : int;
+
+  p := 0;
+  q := 1;
+  
+  moo(&p, &q)
+end

@@ -1,0 +1,11 @@
+﻿begin
+  a: int[3],
+  b: int[3],
+  i: int;
+
+  i := 0;
+  do i < 3 -> a[i] := i; b[i] := i*a[i]; i := i+1 od;
+
+  a[0] := b[2]
+
+end

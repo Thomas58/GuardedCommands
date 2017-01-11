@@ -94,8 +94,5 @@ List.iter exec ["A4.gc"; "Swap.gc"; "QuickSortV1.gc"];;
 // Test of programs covered by the fifth task (Section 7.4):
 List.iter exec ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "QuickSortV3.gc"; "par2.gc"];;
 
-(*
-// Test of programs covered by the fifth task using optimized compilation (Section 8.2):
-List.iter execOpt ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
 
-*)
+

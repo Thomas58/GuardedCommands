@@ -1,0 +1,23 @@
+﻿begin
+  procedure f(i : int, d : int, x : int) = {
+    
+	if i < 3 -> x := x + d;
+				print x;
+				f(i+1,1,x);
+				f(i+1,-1,x)
+	|  true  -> skip
+	fi
+  },
+  a: int[9]
+  x: int[3]
+  y: int[3]
+  z: int[3]
+
+
+  i: int;
+
+  i := 0;  
+
+  f(0,1,i)
+
+end

@@ -1,0 +1,10 @@
+﻿
+begin 
+  function f(c: int): int = {
+	if c < 12 -> return f(c + 3) 
+	|  true	  -> return c
+	fi
+  };
+
+  print f(0)
+end

@@ -4,9 +4,8 @@
     | true -> { tmp: int;
                 fac(n-1, &tmp);
                 res^ := tmp * n} fi},
-  procedure init() = {i :int;
+  {i :int;
    i := 0;
    do  i < 5 -> {n: int; fac(i, &n); print n; i := i + 1} od 
-  };
-  init()
+  }
 end

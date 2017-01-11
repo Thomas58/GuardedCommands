@@ -1,0 +1,14 @@
+﻿begin
+  procedure f(p : ^int, a : int[], len : int) = {
+	if p^ < len -> a[p^] := 1; p^ := p^ + 1; f(p, a, len)
+	| true		-> skip
+	fi
+  },
+  a: int[3],
+  p: int;
+
+  p := 0;
+  
+  f(&p, a, 3)
+
+end

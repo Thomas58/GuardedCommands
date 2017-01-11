@@ -1,0 +1,14 @@
+﻿begin
+  procedure f(i : int, a : int[]) = {
+	a[i] := 1
+  },
+  a: int[3],
+  i: int;
+
+  i := 0;  
+
+  f(i, a);
+
+  i := 1
+
+end

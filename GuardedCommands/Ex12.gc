@@ -1,0 +1,11 @@
+﻿
+begin 
+  procedure f(c: ^int) = {
+	if c^ < 12 -> c^ := c^ + 3; f(c) 
+	|  true	   -> print c^
+	fi
+  },
+  c: int;
+  c:=0;
+  f(&c)
+end

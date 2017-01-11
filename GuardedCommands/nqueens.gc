@@ -1,0 +1,17 @@
+﻿begin
+  i; 
+  u;
+  used[100];
+  diag1[100];
+  diag2[100];
+  col[100];
+function fact(n: int): int =
+{  x:int, y:int ;
+   x:= n ;
+   y := 1 ;
+   do ! x = 0  ->  y := x*y; x:=x-1 od ;
+   return y
+} ;
+res := fact(4);
+print res
+end

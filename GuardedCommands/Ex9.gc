@@ -1,0 +1,10 @@
+﻿
+begin 
+  procedure h(p : ^int) = {a: int; a := 5; p^ := p^ + a },
+  procedure g(p : ^int) = {b: int; b := 4; p^ := p^ + b; h(p) },
+  procedure f(p : ^int) = {c: int; c := 3; p^ := p^ + c; g(p) },
+  p : int;
+
+  f(&p);
+  print p  
+end

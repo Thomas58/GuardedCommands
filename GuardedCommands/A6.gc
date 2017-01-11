@@ -1,0 +1,19 @@
+﻿begin
+  procedure swap(p1 : ^int, p2 : ^int, a : int[], b : int[]) = {
+	a[p1^] := b[p2^]
+  },
+  a: int[3],
+  b: int[3],
+  p1: int,
+  p2: int,
+  i: int;
+
+  p1 := 0;
+  p2 := 2;
+
+  i := 0;
+  do i < 3 -> a[i] := i; b[i] := i*a[i]; i := i+1 od;
+
+  swap(&p1, &p2, a, b)
+
+end
