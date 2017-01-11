@@ -178,7 +178,7 @@ and _fslex_tokenize  _fslex_state lexbuf =
           )
   | 14 -> ( 
 # 56 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Lexer.fsl"
-                                 ASG   
+                                 ASG 
 # 182 "C:\Users\Helge\git\GuardedCommands\GuardedCommands\Lexer.fs"
           )
   | 15 -> ( 

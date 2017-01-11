@@ -42,7 +42,6 @@ type token =
   | RSP
   | ITYP
   | BTYP
-  | ATYP
   | NAME of (string)
   | STRING of (string)
   | BOOL of (bool)
@@ -89,7 +88,6 @@ type tokenId =
     | TOKEN_RSP
     | TOKEN_ITYP
     | TOKEN_BTYP
-    | TOKEN_ATYP
     | TOKEN_NAME
     | TOKEN_STRING
     | TOKEN_BOOL
@@ -103,8 +101,8 @@ type nonTerminalId =
     | NONTERM_Prog
     | NONTERM_BasicTyp
     | NONTERM_Typ
-    | NONTERM_ATyp
     | NONTERM_TypOpt
+    | NONTERM_ATyp
     | NONTERM_Dec
     | NONTERM_DecL
     | NONTERM_DecList
