@@ -15,11 +15,16 @@ open GuardedCommands.Frontend.AST
 %token EOF
 %token HIGH
 
+%right ASG
+%nonassoc PRINT
 %left AND
 %nonassoc NEG
-%left EQ LE LT GT GE NEQ
+%left EQ NEQ
+%left GT LT GE LE
 %left PLUS MINUS 
 %left TIMES
+%nonassoc AT
+%nonassoc LSP
 
 %start Main Prog 
 %type <Exp> Exp
@@ -39,7 +44,7 @@ Main:
    Prog EOF                            { $1 }
 
 Prog:
-    BEGIN DecList SEMI StmL END        { P($2, $4) }
+    BEGIN DecL SEMI StmL END           { P($2, $4) }
   | BEGIN StmL END                     { P([], $2) }   
 
 BasicTyp:

@@ -181,7 +181,7 @@ module CodeGeneration =
 /// CP prog gives the code for a program prog
     let CP (P(decs,stms)) = 
         let _ = resetLabels ()
-        let ((gvM,_) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs
+        let ((gvM,i) as gvEnv, fEnv, initCode) = makeGlobalEnvs decs
 
         let compileFunc (_, f, fdecs, stm) = 
             let (label, _, _) = findFunction f fEnv
@@ -192,6 +192,8 @@ module CodeGeneration =
         let functions = List.choose (function
             | FunDec(topt, f, fdecs, stm) -> Some(compileFunc(topt, f, fdecs, stm))
             | _                           -> None) decs
+
+        let main = newLabel()
 
         initCode @ CSs gvEnv fEnv stms @ [STOP] @ List.concat functions
 

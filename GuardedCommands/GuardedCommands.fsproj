@@ -63,8 +63,9 @@
     <Compile Include="CodeGen.fs" />
     <Compile Include="CodeGenOpt.fs" />
     <Compile Include="Util.fs" />
+    <None Include="Ex9.gc" />
+    <None Include="Tests.fsx" />
     <None Include="QuickTest.gc" />
-    <None Include="Script.fsx" />
     <Content Include="README.txt" />
     <None Include="Ex0.gc" />
     <None Include="Ex1.gc" />
@@ -88,8 +89,10 @@
     <None Include="factImpPTyp.gc" />
     <None Include="par2.gc" />
     <Content Include="packages.config" />
-    <None Include="Ex7.gc" />
     <None Include="QuickSortV2.gc" />
+    <None Include="Ex7.gc" />
+    <None Include="Script.fsx" />
+    <None Include="Ex8.gc" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

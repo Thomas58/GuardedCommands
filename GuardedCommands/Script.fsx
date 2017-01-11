@@ -34,7 +34,7 @@ System.IO.Directory.SetCurrentDirectory @"C:\Users\Helge\git\GuardedCommands\Gua
 
 // The Ex0.gc example:
 
-let ex0Tree = parseFromFile "Ex7.gc";;
+let ex0Tree = parseFromFile "Ex0.gc";;
 
 let _ = tcP ex0Tree;;
 
@@ -92,7 +92,7 @@ exec "QuickSortV1.gc"
 List.iter exec ["A4.gc"; "Swap.gc"; "QuickSortV1.gc"];;
 
 // Test of programs covered by the fifth task (Section 7.4):
-List.iter exec ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
+List.iter exec ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "QuickSortV3.gc"; "par2.gc"];;
 
 (*
 // Test of programs covered by the fifth task using optimized compilation (Section 8.2):

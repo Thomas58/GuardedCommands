@@ -45,7 +45,7 @@ module TypeCheck =
         match (f, tcE gtenv ltenv e) with
         | ("-", ITyp) -> ITyp
         | ("!", BTyp) -> BTyp
-        | _           -> failwith "illegal/illtyped monadic expression" 
+        | (s,t)       -> failwith("illegal/illtyped monadic expression: " + s + " type: " + string t)
    
     and tcDyadic gtenv ltenv f e1 e2 = 
         match (f, tcE gtenv ltenv e1, tcE gtenv ltenv e2) with
