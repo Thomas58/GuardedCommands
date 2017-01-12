@@ -233,7 +233,8 @@ module CodeGenerationOpt =
 
         | Block(decs,stms) -> let (newEnv, code) = addLocalVars vEnv decs
                               code @ CSs stms newEnv fEnv (addINCSP (snd vEnv - snd newEnv) k)
-
+                              
+        | Alt(GC [])       -> failwith "Alt: abort abnormally"
         | Alt(GC list)     -> let (gotoend, lendC) = makeJump k
                               List.foldBack (fun (e,stms) acc -> 
                                   let (labelfalse, lfalseC) = addLabel acc
@@ -241,6 +242,7 @@ module CodeGenerationOpt =
                                     CSs stms vEnv fEnv (addJump gotoend lfalseC))
                                   ) list (STOP :: lendC)
 
+        | Do(GC [])         -> k
         | Do(GC list)       -> let labelstart = newLabel()
                                Label labelstart ::
                                List.foldBack (fun (e,stms) acc -> 

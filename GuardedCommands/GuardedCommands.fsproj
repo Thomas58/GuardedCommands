@@ -103,11 +103,10 @@
     <None Include="A8.gc" />
     <None Include="A9.gc" />
     <None Include="A10.gc" />
-    <None Include="A11.gc" />
     <None Include="B0.gc" />
     <None Include="B1.gc" />
-    <None Include="B2.gc" />
     <Content Include="packages.config" />
+    <None Include="B2.gc" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FSharp.Core">

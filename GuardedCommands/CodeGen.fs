@@ -153,6 +153,7 @@ module CodeGeneration =
         | Block(decs,stms) -> let (newEnv, code) = addLocalVars vEnv decs
                               code @ CSs newEnv fEnv stms @ [INCSP (snd vEnv - snd newEnv)]
 
+        | Alt(GC [])       -> failwith "Alt: abort abnormally"
         | Alt(GC list)     -> let labend = newLabel()
                               List.fold (fun acc (e,stms) -> 
                                   let labfalse = newLabel() 
@@ -160,6 +161,7 @@ module CodeGeneration =
                                   CSs vEnv fEnv stms @ [GOTO labend; Label labfalse]
                                   ) [] list @ [STOP; Label labend]
 
+        | Do(GC [])         -> []
         | Do(GC list)       -> let labstart = newLabel()
                                List.fold (fun acc (e,stms) ->
                                   let labfalse = newLabel()
