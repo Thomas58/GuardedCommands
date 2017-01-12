@@ -2,9 +2,6 @@
 
 // Michael R. Hansen 05-01-2016
 
-// You must revise 4 pathes occurring in this file 
-// The first three are:
-
 #r @".\bin\Debug\FSharp.PowerPack.dll";;
 #r @".\bin\Debug\Machine.dll";
 #r @".\bin\Debug\VirtualMachine.dll";
@@ -29,7 +26,6 @@ open CompilerUtil
 open Machine
 open VirtualMachine
 
-// You must revise this path
 System.IO.Directory.SetCurrentDirectory @"C:\Users\Helge\git\GuardedCommands\GuardedCommands\";;
 
 // Test of programs covered by the first task (Section 3.7):
@@ -45,7 +41,7 @@ List.iter execOpt ["A0.gc"; "A1.gc"; "A2.gc"; "A3.gc"];;
 List.iter execOpt ["A4.gc"; "Swap.gc"; "QuickSortV1.gc"];;
 
 // Test of programs covered by the fifth task (Section 7.4):
-List.iter execOpt ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
+List.iter execOpt ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"];;
 
-
+exec "par2.gc";;
 

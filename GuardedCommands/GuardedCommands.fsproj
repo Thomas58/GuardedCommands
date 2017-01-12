@@ -66,6 +66,8 @@
     <Content Include="README.txt" />
     <None Include="Script.fsx" />
     <None Include="Tests.fsx" />
+    <None Include="ScriptOpt.fsx" />
+    <None Include="TestsOpt.fsx" />
     <None Include="par1.gc" />
     <None Include="par2.gc" />
     <None Include="fact.gc" />
@@ -88,6 +90,7 @@
     <None Include="Ex10.gc" />
     <None Include="Ex11.gc" />
     <None Include="Ex12.gc" />
+    <None Include="Ex13.gc" />
     <None Include="Skip.gc" />
     <None Include="A0.gc" />
     <None Include="A1.gc" />
