@@ -190,9 +190,10 @@ module CodeGenerationOpt =
                          let (labfalse, k2) = addLabel (addCST 0 k1)
                          CE b1 vEnv fEnv (IFZERO labfalse :: CE b2 vEnv fEnv (addJump jumpend k2))
 
-        | Apply(o,[e1;e2])  when List.exists (fun x -> o=x) ["+"; "*"; "="; "<>"; "<"; "<="; ">"; ">="]
+        | Apply(o,[e1;e2])  when List.exists (fun x -> o=x) ["+"; "-"; "*"; "="; "<>"; "<"; "<="; ">"; ">="]
                            -> let ins = match o with
                                         | "+"  -> ADD::k
+                                        | "-"  -> SUB::k
                                         | "*"  -> MUL::k
                                         | "="  -> EQ::k
                                         | "<>" -> EQ :: NOT :: k
@@ -236,15 +237,15 @@ module CodeGenerationOpt =
         | Alt(GC list)     -> let (gotoend, lendC) = makeJump k
                               List.foldBack (fun (e,stms) acc -> 
                                   let (labelfalse, lfalseC) = addLabel acc
-                                  CE e vEnv fEnv ([IFZERO labelfalse] ::
+                                  CE e vEnv fEnv (IFZERO labelfalse ::
                                     CSs stms vEnv fEnv (addJump gotoend lfalseC))
-                                  ) list [STOP; lendC]
+                                  ) list (STOP :: lendC)
 
         | Do(GC list)       -> let labelstart = newLabel()
-                               [Label labelstart] ::
-                               List.foldback (fun (e,stms) acc -> 
+                               Label labelstart ::
+                               List.foldBack (fun (e,stms) acc -> 
                                   let (labelfalse, lfalseC) = addLabel acc
-                                  CE e vEnv fEnv ([IFZERO labelfalse] ::
+                                  CE e vEnv fEnv (IFZERO labelfalse ::
                                     CSs stms vEnv fEnv (addGOTO labelstart lfalseC))
                                   ) list k
 

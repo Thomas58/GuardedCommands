@@ -63,8 +63,6 @@
     <Compile Include="CodeGen.fs" />
     <Compile Include="CodeGenOpt.fs" />
     <Compile Include="Util.fs" />
-    <None Include="nqueens.gc" />
-    <None Include="QuickTest.gc" />
     <Content Include="README.txt" />
     <None Include="Script.fsx" />
     <None Include="Tests.fsx" />
@@ -77,7 +75,6 @@
     <None Include="factImpPTyp.gc" />
     <None Include="QuickSortV1.gc" />
     <None Include="QuickSortV2.gc" />
-    <None Include="QuickSortV3.gc" />
     <None Include="Ex0.gc" />
     <None Include="Ex1.gc" />
     <None Include="Ex2.gc" />

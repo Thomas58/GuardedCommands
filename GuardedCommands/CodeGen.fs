@@ -186,8 +186,7 @@ module CodeGeneration =
         let compileFunc (_, f, fdecs, stm) = 
             let (label, _, _) = findFunction f fEnv
             let lvEnv = bindParams fdecs (gvM, 0)
-            let code = CS lvEnv fEnv stm
-            [Label label] @ code @ [RET (List.length fdecs-1)]
+            [Label label] @ CS lvEnv fEnv stm @ [RET (List.length fdecs-1)]
 
         let functions = List.choose (function
             | FunDec(topt, f, fdecs, stm) -> Some(compileFunc(topt, f, fdecs, stm))

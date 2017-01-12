@@ -90,7 +90,7 @@ List.iter exec ["A0.gc"; "A1.gc"; "A2.gc"; "A3.gc"];;
 List.iter exec ["A4.gc"; "Swap.gc"; "QuickSortV1.gc"];;
 
 // Test of programs covered by the fifth task (Section 7.4):
-List.iter exec ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "QuickSortV3.gc"; "par2.gc"];;
+List.iter exec ["par1.gc"; "factImpPTyp.gc"; "QuickSortV2.gc"; "par2.gc"];;
 
 
 
