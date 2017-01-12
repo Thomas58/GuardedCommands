@@ -160,12 +160,12 @@ module CodeGeneration =
                                   CSs vEnv fEnv stms @ [GOTO labend; Label labfalse]
                                   ) [] list @ [STOP; Label labend]
 
-        | Do(GC list)       -> List.fold (fun acc (e,stms) -> 
-                                  let labstart = newLabel()
+        | Do(GC list)       -> let labstart = newLabel()
+                               List.fold (fun acc (e,stms) ->
                                   let labfalse = newLabel()
-                                  acc @ [Label labstart] @ CE vEnv fEnv e @ [IFZERO labfalse] @ 
+                                  acc @ CE vEnv fEnv e @ [IFZERO labfalse] @ 
                                   CSs vEnv fEnv stms @ [GOTO labstart; Label labfalse]                             
-                                  ) [] list
+                                  ) [Label labstart] list
 
         | Return e         -> CE vEnv fEnv e @ [RET (snd vEnv)]
 
