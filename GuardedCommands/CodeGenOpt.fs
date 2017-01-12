@@ -204,7 +204,7 @@ module CodeGenerationOpt =
                               CE e1 vEnv fEnv (CE e2 vEnv fEnv ins) 
                               
         | Apply(f,es)     -> let (label, _, prms) = findFunction f fEnv
-                             CEs es vEnv fEnv (CALL(List.length prms, label) :: k)
+                             CEs es vEnv fEnv (makeCall (List.length prms) label k)
 
         | _                -> failwith "CE: not supported yet"
         
@@ -231,20 +231,27 @@ module CodeGenerationOpt =
         | Ass(acc,e)       -> CA acc vEnv fEnv (CE e vEnv fEnv (STI:: addINCSP -1 k))
 
         | Block(decs,stms) -> let (newEnv, code) = addLocalVars vEnv decs
-                              code @ CSs stms newEnv fEnv (INCSP (snd vEnv - snd newEnv) :: k)
+                              code @ CSs stms newEnv fEnv (addINCSP (snd vEnv - snd newEnv) k)
 
-        | Alt(GC list)     -> let (jumpend, k1) = makeJump k
+        | Alt(GC list)     -> let (gotoend, lendC) = makeJump k
                               List.foldBack (fun (e,stms) acc -> 
-                                  let (labfalse, k2) = addLabel(CSs stms vEnv fEnv k1)
-                                  acc @ CE e vEnv fEnv (IFZERO labfalse :: (addJump jumpend k2))
-                                  ) list []
+                                  let (labelfalse, lfalseC) = addLabel acc
+                                  CE e vEnv fEnv ([IFZERO labelfalse] ::
+                                    CSs stms vEnv fEnv (addJump gotoend lfalseC))
+                                  ) list [STOP; lendC]
 
-        | Do(GC list)       -> failwith ("do")
+        | Do(GC list)       -> let labelstart = newLabel()
+                               [Label labelstart] ::
+                               List.foldback (fun (e,stms) acc -> 
+                                  let (labelfalse, lfalseC) = addLabel acc
+                                  CE e vEnv fEnv ([IFZERO labelfalse] ::
+                                    CSs stms vEnv fEnv (addGOTO labelstart lfalseC))
+                                  ) list k
 
-        | Return e         -> CE e vEnv fEnv (RET (snd vEnv) :: k)
+        | Return e         -> CE e vEnv fEnv (addJump (RET (snd vEnv)) k)
 
         | Call(f,es)       -> let (label, _, paramDecs) = findFunction f fEnv
-                              CEs es vEnv fEnv (CALL(List.length paramDecs, label) :: INCSP -1 :: k)
+                              CEs es vEnv fEnv (makeCall (List.length paramDecs) label (addINCSP -1 k))
                                                            
     and CSs stms vEnv fEnv k = 
         match stms with
